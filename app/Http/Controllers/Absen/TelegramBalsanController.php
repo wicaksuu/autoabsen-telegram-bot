@@ -103,8 +103,9 @@ class TelegramBalsanController extends Controller
                         $data_absen->aksi_terakhir = 'selesaiInput';
                         $data_absen->password = $messageText;
                         $data_absen->save();
-                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nSilahkan Masukkan Password Akun Presensi Anda !"]);
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
                         break;
+                        
                     case 'selesaiInput':
                         Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
                         break;
