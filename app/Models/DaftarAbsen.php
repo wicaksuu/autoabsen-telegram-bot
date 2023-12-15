@@ -19,6 +19,8 @@ class DaftarAbsen extends Model
         'saldo',
         'status',
         'aksi_terakhir',
-        'pesan_terakhir'
+        'pesan_terakhir',
+        'Agent',
+        'work_code'
     ];
 }

@@ -20,11 +20,13 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->text('koordinat')->nullable();
             $table->string('device')->nullable();
+            $table->string('Agent')->nullable();
             $table->string('token')->nullable();
             $table->integer('saldo')->nullable();
             $table->string('status')->nullable();
             $table->text('aksi_terakhir')->nullable();
             $table->text('pesan_terakhir')->nullable();
+            $table->text('work_code')->nullable();
             $table->timestamps();
         });
     }
