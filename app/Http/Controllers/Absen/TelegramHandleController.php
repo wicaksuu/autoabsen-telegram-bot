@@ -60,4 +60,14 @@ class TelegramHandleController extends Controller
         $response = Telegram::getWebhookUpdate();
         return response()->json($response);
     }
+    public function dell()
+    {
+        $response = Telegram::removeWebhook();
+        return response()->json($response);
+    }
+    public function getUpdate()
+    {
+        $response = Telegram::getUpdates();
+        return response()->json($response);
+    }
 }
