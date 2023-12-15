@@ -9,18 +9,20 @@ class DaftarAbsen extends Model
 {
     use HasFactory;
     protected $fillable = [
+
         'chatId',
+        'UrlAbsen',
         'nama',
         'nip',
         'password',
         'koordinat',
         'device',
+        'Agent',
         'token',
         'saldo',
         'status',
         'aksi_terakhir',
         'pesan_terakhir',
-        'Agent',
-        'work_code'
+        'work_code',
     ];
 }

@@ -78,7 +78,7 @@ class TelegramBalsanController extends Controller
                 break;
 
             case 'Ya-Daftar-Madiun-Kab':
-                DaftarAbsen::create(['chatId' => $chatId, 'aksi_terakhir' => 'inputNama']);
+                DaftarAbsen::create(['chatId' => $chatId, 'aksi_terakhir' => 'inputNama', 'UrlAbsen' => 'madiunkab']);
                 Telegram::sendMessage(['chat_id' => $chatId, 'text' => 'Silahkan Masukkan Nama Anda !']);
 
                 break;
@@ -91,22 +91,22 @@ class TelegramBalsanController extends Controller
                         $data_absen->aksi_terakhir = 'inputNip';
                         $data_absen->nama = $messageText;
                         $data_absen->save();
-                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai $messageText\n\nSilahkan Masukkan NIP Anda !"]);
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "\n\nSilahkan Masukkan NIP Anda !"]);
                         break;
                     case 'inputNip':
                         $data_absen->aksi_terakhir = 'inputPassword';
                         $data_absen->nip = $messageText;
                         $data_absen->save();
-                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "($messageText)\n\nSilahkan Masukkan Password Akun Presensi Anda !"]);
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . " (" . $data_absen->nip . ")\n\nSilahkan Masukkan Password Akun Presensi Anda !"]);
                         break;
                     case 'inputPassword':
                         $data_absen->aksi_terakhir = 'selesaiInput';
                         $data_absen->password = $messageText;
                         $data_absen->save();
-                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . " (" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
                         break;                        
                     case 'selesaiInput':
-                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . " (" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
                         break;
                 }
 
