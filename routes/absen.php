@@ -19,4 +19,4 @@ Route::any('/', [TelegramHandleController::class, 'handle'])->name('bot-handle')
 Route::any('/webhook', [TelegramHandleController::class, 'setWebHook']);
 Route::any('/update', [TelegramHandleController::class, 'update']);
 Route::any('/dell', [TelegramHandleController::class, 'dell']);
-Route::any('/update', [TelegramHandleController::class, 'getUpdate']);
+Route::any('/getupdate', [TelegramHandleController::class, 'getUpdate']);
