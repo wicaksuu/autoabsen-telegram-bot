@@ -28,7 +28,7 @@ class TelegramBalsanController extends Controller
         $data_absen = DaftarAbsen::where('chatId', $chatId)->first();
         if (!$data_absen) {
             Telegram::sendChatAction(['chat_id' => $chatId, 'action' => 'typing']);
-            $pesan = "Saya adalah chat bot yang akan membantu anda untuk melakukan presensi kerja dimanapun\n\nBerikut Daftar Suport Kami";
+            $pesan = "Saya adalah chat bot yang akan membantu anda untuk melakukan presensi kerja dimanapun\n\nApabila terdapat kendala mohon menghubungi " . env('ADMIN') . "\n\nBiaya layanan pada setiap presensi adalah Rp. " . env('BIAYA') . ",00 perlu diketahui harga dapat berubah sewaktu-waktu tanpa pemberitahuan !\n\nBerikut Daftar Suport Kami :";
             $replyMarkup = ['keyboard' => $this->daftarAbsen, 'resize_keyboard' => true, 'one_time_keyboard' => true];
             Telegram::sendMessage([
                 'chat_id' => $chatId,
@@ -104,15 +104,22 @@ class TelegramBalsanController extends Controller
                         $data_absen->password = $messageText;
                         $data_absen->save();
                         Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
-                        break;
-                        
+                        break;                        
                     case 'selesaiInput':
                         Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nMohon Tunggu Admin Kami Sedang Melakukan Penggecekan Akun !"]);
                         break;
+                }
 
-                        // default:
-                        //     # code...
-                        //     break;
+                switch ($data_absen->status) {
+                    case 'akunValid':
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nSelamat akun anda telah valid, untuk proses selanjutnya mohon menghubungi " . env('ADMIN') . " untuk melakukan proses topup layanan !"]);
+                        break;
+
+                    case 'akunAktif':
+                        $pesan = "Hai " . $data_absen->nama . "(" . $data_absen->nip . ")\n\nSelamat Status Akun Anda Aktif, apabila terdapat kendala mohon menghubungi " . env('ADMIN') . "\n\nterimakasih !";
+                        Telegram::sendMessage(['chat_id' => $chatId, 'text' => $pesan]);
+                        break;
+
                 }
                 break;
         }
